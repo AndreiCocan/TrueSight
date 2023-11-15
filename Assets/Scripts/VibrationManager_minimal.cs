@@ -25,11 +25,15 @@ public class VibrationManager_minimal: MonoBehaviour
     [Range(0, 255)]
     public byte vibIntensity4 = 0;
 
+    [Range(0, 255)]
+    public byte[] vibIntensity = new byte[4];
+
     public bool exampleBool;
-    
-    
-    public List<int> exampleList = new List<int>(); // The elements type must be Serializable
-    
+
+    public float directionValue;
+
+    public AnimationCurve[] vibCurves = new AnimationCurve[4];
+
     // the Start function is called when a script is enabled
     private void Start()
     {
@@ -41,6 +45,7 @@ public class VibrationManager_minimal: MonoBehaviour
 
     private void Update()
     {
+        evaluateVibCurve();
         playVib();   
     }
 
@@ -56,24 +61,21 @@ public class VibrationManager_minimal: MonoBehaviour
         driver.SendMessage();
     }
     
-    // default message is a message with all motors at 0 + the end marker
-    private byte[] getDefaultMessage()
+    private void evaluateVibCurve()
     {
-        return new byte[5] { 0, 0, 0, 0, Driver.EndMarker };
+        for(int i = 0; i < vibCurves.Length; i++)
+        {
+            vibIntensity[i] = (byte) vibCurves[i].Evaluate(directionValue);
+        }
     }
-    
     public void playVib()
     {
-        driver.SetMessage(new byte[5] { vibIntensity1, vibIntensity2, vibIntensity3, vibIntensity4, Driver.EndMarker });
+        driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
     }
 
-
-
-    // example of a function that will play a vibration on one motor
-    // this function is asynchronous, meaning that it will not block the main thread
     public void endVib()
     {
-        driver.SetMessage(getDefaultMessage());
+        driver.SetMessage(new byte[5] { 0, 0, 0, 0, Driver.EndMarker });
     }
 }
 
@@ -82,18 +84,6 @@ public class VibrationManager_minimal: MonoBehaviour
 [CustomEditor(typeof(VibrationManager_minimal))]
 public class VibrationManagerEditor : Editor
 {
-
-
-    AnimationCurve curve1 = new AnimationCurve();
-    AnimationCurve curve2 = new AnimationCurve();
-    AnimationCurve curve3 = new AnimationCurve();
-    AnimationCurve curve4 = new AnimationCurve();
-
-
-
-    static float directionValue;
-
-
 
     // instance is the object that is being edited/displayed
     private VibrationManager_minimal instance;
@@ -109,55 +99,55 @@ public class VibrationManagerEditor : Editor
     {
         base.OnInspectorGUI(); // draw the default inspector
 
-        directionValue = EditorGUILayout.Slider("Direction Slider", directionValue, -10, 10);
+        instance.directionValue = EditorGUILayout.Slider("Direction Slider", instance.directionValue, -180, 180);
 
-        curve1 = EditorGUILayout.CurveField(
+        instance.vibCurves[0] = EditorGUILayout.CurveField(
             "Vibration en 1",
-            curve1,
+            instance.vibCurves[0],
             Color.cyan,
-            new Rect(-10, 0, 20, 255)
+            new Rect(-180, 0, 360, 255)
             );
 
-        instance.vibIntensity1 = (byte) curve1.Evaluate(directionValue);
-
-        curve2 = EditorGUILayout.CurveField(
+        instance.vibCurves[1] = EditorGUILayout.CurveField(
             "Vibration en 2",
-            curve2,
+            instance.vibCurves[1],
             Color.cyan,
-            new Rect(-10, 0, 20, 255)
+            new Rect(-180, 0, 360, 255)
             );
 
-        instance.vibIntensity2 = (byte) curve2.Evaluate(directionValue);
-
-        curve3 = EditorGUILayout.CurveField(
+        instance.vibCurves[2] = EditorGUILayout.CurveField(
             "Vibration en 3",
-            curve3,
+            instance.vibCurves[2],
             Color.cyan,
-            new Rect(-10, 0, 20, 255)
+            new Rect(-180, 0, 360, 255)
             );
 
-        instance.vibIntensity3 = (byte) curve3.Evaluate(directionValue);
-
-        curve4 = EditorGUILayout.CurveField(
+        instance.vibCurves[3] = EditorGUILayout.CurveField(
             "Vibration en 4",
-            curve4,
+            instance.vibCurves[3],
             Color.cyan,
-            new Rect(-10, 0, 20, 255)
+            new Rect(-180, 0, 360, 255)
             );
 
-        instance.vibIntensity4 = (byte) curve4.Evaluate(directionValue);
 
         if (GUILayout.Button("New setting"))
         {
-            curve1 = new AnimationCurve();
-            VibSettings vibSettings = VibSettings.CreateInstance(curve1, curve2, curve3, curve4);
+            for(int i = 0; i < instance.vibCurves.Length; i++)
+            {
+                instance.vibCurves[i] = new AnimationCurve();
+            }
+
+            VibSettings vibSettings = VibSettings.CreateInstance(instance.vibCurves[0], instance.vibCurves[1], instance.vibCurves[2], instance.vibCurves[3]);
 
             VibSettingsManager.SaveCurve(vibSettings);
         }
 
         if (GUILayout.Button("Load settings 1"))
         {
-            curve1 = VibSettingsManager.Instance.vibSettingsList[0].vibIntensityCurves[0];
+            for (int i = 0;i < instance.vibCurves.Length; i++)
+            {
+                instance.vibCurves[i] = VibSettingsManager.Instance.vibSettingsList[0].vibIntensityCurves[i];
+            }
         }
 
     }
