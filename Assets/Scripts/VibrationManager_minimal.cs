@@ -84,14 +84,16 @@ public class VibrationManagerEditor : Editor
 {
 
 
-    AnimationCurve curve1 = AnimationCurveSave.Instance.curves;
-    AnimationCurve curve2 = AnimationCurve.Linear(0, 0, 1, 0);
-    AnimationCurve curve3 = AnimationCurve.Linear(0, 0, 1, 0);
-    AnimationCurve curve4 = AnimationCurve.Linear(0, 0, 1, 0);
+    AnimationCurve curve1 = new AnimationCurve();
+    AnimationCurve curve2 = new AnimationCurve();
+    AnimationCurve curve3 = new AnimationCurve();
+    AnimationCurve curve4 = new AnimationCurve();
+
+
 
     static float directionValue;
 
-    List<AnimationCurve> curves;
+
 
     // instance is the object that is being edited/displayed
     private VibrationManager_minimal instance;
@@ -145,9 +147,17 @@ public class VibrationManagerEditor : Editor
 
         instance.vibIntensity4 = (byte) curve4.Evaluate(directionValue);
 
-        if (GUILayout.Button("Save current curve"))
+        if (GUILayout.Button("New setting"))
         {
-            AnimationCurveSave.SaveCurve(curves);
+            curve1 = new AnimationCurve();
+            VibSettings vibSettings = VibSettings.CreateInstance(curve1, curve2, curve3, curve4);
+
+            VibSettingsManager.SaveCurve(vibSettings);
+        }
+
+        if (GUILayout.Button("Load settings 1"))
+        {
+            curve1 = VibSettingsManager.Instance.vibSettingsList[0].vibIntensityCurves[0];
         }
 
     }
