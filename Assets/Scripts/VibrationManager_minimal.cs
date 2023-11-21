@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using hapticDriver;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
@@ -13,26 +14,14 @@ public class VibrationManager_minimal: MonoBehaviour
     private Timer callbackTimer;
     private Driver driver;
 
-    [Range(0,255)]
-    public byte vibIntensity1 = 200;
-
-    [Range(0, 255)]
-    public byte vibIntensity2 = 0;
-
-    [Range(0, 255)]
-    public byte vibIntensity3 = 0;
-
-    [Range(0, 255)]
-    public byte vibIntensity4 = 0;
 
     [Range(0, 255)]
     public byte[] vibIntensity = new byte[4];
 
-    public bool exampleBool;
-
     public float directionValue;
 
-    public AnimationCurve[] vibCurves = new AnimationCurve[4];
+
+    public VibSettings currentVibSetting;
 
     // the Start function is called when a script is enabled
     private void Start()
@@ -63,14 +52,20 @@ public class VibrationManager_minimal: MonoBehaviour
     
     private void evaluateVibCurve()
     {
-        for(int i = 0; i < vibCurves.Length; i++)
+        for(int i = 0; i < currentVibSetting.vibIntensityCurves.Length; i++)
         {
-            vibIntensity[i] = (byte) vibCurves[i].Evaluate(directionValue);
+            vibIntensity[i] = (byte) currentVibSetting.vibIntensityCurves[i].Evaluate(directionValue);
         }
     }
     public void playVib()
     {
-        driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
+        Debug.Log(vibIntensity[0]);
+        try
+        {
+            driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
+        }
+        catch { }
+
     }
 
     public void endVib()
@@ -88,67 +83,65 @@ public class VibrationManagerEditor : Editor
     // instance is the object that is being edited/displayed
     private VibrationManager_minimal instance;
 
+    private VibSettingsLoader vslInstance;
+
     private void OnEnable()
     {
         instance = (VibrationManager_minimal)target;
+        vslInstance = VibSettingsLoader.Instance;
     }
 
     // this function is called when the inspector is drawn
     // this is where we can add buttons
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI(); // draw the default inspector
+        //base.OnInspectorGUI(); // draw the default inspector
 
         instance.directionValue = EditorGUILayout.Slider("Direction Slider", instance.directionValue, -180, 180);
 
-        instance.vibCurves[0] = EditorGUILayout.CurveField(
-            "Vibration en 1",
-            instance.vibCurves[0],
-            Color.cyan,
-            new Rect(-180, 0, 360, 255)
-            );
-
-        instance.vibCurves[1] = EditorGUILayout.CurveField(
-            "Vibration en 2",
-            instance.vibCurves[1],
-            Color.cyan,
-            new Rect(-180, 0, 360, 255)
-            );
-
-        instance.vibCurves[2] = EditorGUILayout.CurveField(
-            "Vibration en 3",
-            instance.vibCurves[2],
-            Color.cyan,
-            new Rect(-180, 0, 360, 255)
-            );
-
-        instance.vibCurves[3] = EditorGUILayout.CurveField(
-            "Vibration en 4",
-            instance.vibCurves[3],
-            Color.cyan,
-            new Rect(-180, 0, 360, 255)
-            );
-
-
-        if (GUILayout.Button("New setting"))
+        for(int i = 0; i < instance.currentVibSetting.vibIntensityCurves.Length; i++)
         {
-            for(int i = 0; i < instance.vibCurves.Length; i++)
-            {
-                instance.vibCurves[i] = new AnimationCurve();
-            }
-
-            VibSettings vibSettings = VibSettings.CreateInstance(instance.vibCurves[0], instance.vibCurves[1], instance.vibCurves[2], instance.vibCurves[3]);
-
-            VibSettingsManager.SaveCurve(vibSettings);
+            instance.currentVibSetting.vibIntensityCurves[i] = EditorGUILayout.CurveField(
+                "Vibration en " + i,
+                instance.currentVibSetting.vibIntensityCurves[i],
+                Color.cyan,
+                new Rect(-180, 0, 360, 255)
+                );
         }
 
-        if (GUILayout.Button("Load settings 1"))
+        if (GUILayout.Button("New Settings"))
         {
-            for (int i = 0;i < instance.vibCurves.Length; i++)
-            {
-                instance.vibCurves[i] = VibSettingsManager.Instance.vibSettingsList[0].vibIntensityCurves[i];
-            }
+            instance.currentVibSetting = vslInstance.NewAsset();
         }
 
+        if (GUILayout.Button("Save Current Settings"))
+        {
+            vslInstance.SaveAsset(instance.currentVibSetting);
+        }
+
+        vslInstance.SetAssetIndex(EditorGUILayout.IntPopup("Select Settings", vslInstance.CurrentAssetIndex, GenerateChoicesArray(vslInstance.GetNumberofAssets()), GenerateIndexArray(vslInstance.GetNumberofAssets())));
+        instance.currentVibSetting = vslInstance.GetCurrentAsset();
+
+    }
+
+
+    private string[] GenerateChoicesArray(int count)
+    {
+        string[] choices = new string[count];
+        for (int i = 0; i < count; i++)
+        {
+            choices[i] = "Settings " + (i + 1).ToString();
+        }
+        return choices;
+    }
+
+    private int[] GenerateIndexArray(int count)
+    {
+        int[] indices = new int[count];
+        for (int i = 0; i < count; i++)
+        {
+            indices[i] = i;
+        }
+        return indices;
     }
 }

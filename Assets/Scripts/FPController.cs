@@ -37,7 +37,21 @@ public class FPController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
+
+        float curSpeedX;
+        
+        if (Input.GetMouseButton(0))
+        {
+            curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) : 0;
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            curSpeedX = canMove ? (isRunning ?  runningSpeed : walkingSpeed) * -1 : 0;
+        }
+        else { 
+            curSpeedX = 0; 
+        }
+
         float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);

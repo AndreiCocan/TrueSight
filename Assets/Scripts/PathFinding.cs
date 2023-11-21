@@ -30,6 +30,7 @@ public class PathFinding : MonoBehaviour
         {
             elapsed -= 0.1f;
             NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
+            DeviationFromPathCalc();
         }
         for (int i = 0; i < path.corners.Length - 1; i++)
             Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
@@ -38,7 +39,7 @@ public class PathFinding : MonoBehaviour
     private void DeviationFromPathCalc()
     {
         Vector3 PathDirection = path.corners[1] - path.corners[0];
-        float DeviationAngle = Vector3.Angle(PathDirection, target.forward);
+        float DeviationAngle = Vector3.SignedAngle(PathDirection, transform.forward,Vector3.up);
         vm.directionValue = DeviationAngle;
 
     }

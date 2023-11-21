@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1338,6 +1338,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1123201739}
+  vm: {fileID: 1962852524}
+--- !u!114 &1962852524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1165003090093382697, guid: f7a688d194bca414487d36063f650527, type: 3}
+  m_PrefabInstance: {fileID: 3091640830539385218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962852522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de05969d6f048188e7b2cbd90390b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3091640830539385218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1346,6 +1358,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1165003090093382697, guid: f7a688d194bca414487d36063f650527, type: 3}
+      propertyPath: currentVibSetting
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f0be7ad363e179478a05bd096089017, type: 2}
     - target: {fileID: 2936382124846678005, guid: f7a688d194bca414487d36063f650527, type: 3}
       propertyPath: m_Name
       value: Player
