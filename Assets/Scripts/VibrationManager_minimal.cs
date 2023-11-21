@@ -28,6 +28,7 @@ public class VibrationManager_minimal: MonoBehaviour
     {
         // create a new driver instance
         driver = new Driver(devicePort);
+        driver.SetVerbose(false);
         // create a new timer that will call the emitterCallback function every 40ms
         callbackTimer = new Timer(emitterCallback, null, 0, 40);
     }
@@ -59,12 +60,8 @@ public class VibrationManager_minimal: MonoBehaviour
     }
     public void playVib()
     {
-        Debug.Log(vibIntensity[0]);
-        try
-        {
-            driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
-        }
-        catch { }
+
+        driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
 
     }
 
