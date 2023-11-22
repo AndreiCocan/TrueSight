@@ -32,19 +32,39 @@ public class PathFinding : MonoBehaviour
         {
             elapsed -= 0.1f;
 
-            NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
-            
-            VibrationFromPathDeviation();
+
+            NavMeshHit closestHit;
+            if (NavMesh.SamplePosition(transform.position, out closestHit, 500, NavMesh.AllAreas))
+            {
+
+
+                Vector3 nearestNavMeshPosition = closestHit.position;
+
+                NavMesh.CalculatePath(nearestNavMeshPosition, target.position, NavMesh.AllAreas, path);
+
+
+                VibrationFromPathDeviation();
+
+            }
+            else
+            {
+                throw new System.Exception("No NavMesh Found");
+            }
+
         }
         DrawPath();
     }
 
     private void VibrationFromPathDeviation()
     {
-        Vector3 PathDirectionProj = Vector3.ProjectOnPlane(path.corners[1] - path.corners[0], Vector3.up);
-        
-        float DeviationAngle = Vector3.SignedAngle(PathDirectionProj, transform.forward,Vector3.up);
-        vm.directionValue = DeviationAngle;
+        if(path.corners.Length >= 2)
+        {
+            Vector3 PathDirectionProj = Vector3.ProjectOnPlane(path.corners[1] - path.corners[0], Vector3.up);
+
+            float DeviationAngle = Vector3.SignedAngle(PathDirectionProj, transform.forward, Vector3.up);
+            vm.directionValue = DeviationAngle;
+        }
+
     }
 
     private void DrawPath()
