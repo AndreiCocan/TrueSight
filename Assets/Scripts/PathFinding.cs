@@ -21,7 +21,11 @@ public class PathFinding : MonoBehaviour
 
     void Update()
     {
-        PathCalc();
+        if( !vm.isArrived )
+        {
+            PathCalc();
+        }
+        
     }
 
     private void PathCalc()
@@ -31,7 +35,6 @@ public class PathFinding : MonoBehaviour
         if (elapsed > 0.1f)
         {
             elapsed -= 0.1f;
-
 
             NavMeshHit closestHit;
             if (NavMesh.SamplePosition(transform.position, out closestHit, 500, NavMesh.AllAreas))
@@ -44,13 +47,15 @@ public class PathFinding : MonoBehaviour
 
 
                 VibrationFromPathDeviation();
-
+                if (isArrived() == true)
+                {
+                    vm.sendArrivedMsg();
+                }
             }
             else
             {
                 throw new System.Exception("No NavMesh Found");
             }
-
         }
         DrawPath();
     }
@@ -75,5 +80,14 @@ public class PathFinding : MonoBehaviour
         }
 
     }
+
+    private bool isArrived()
+    {
+        float distance = Vector3.Distance(transform.position, target.position);
+        Debug.Log("remain distance to target : "+distance);
+        return distance < 2;
+    }
+
+
 
 }

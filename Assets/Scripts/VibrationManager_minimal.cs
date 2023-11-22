@@ -13,6 +13,8 @@ public class VibrationManager_minimal: MonoBehaviour
     public string devicePort = "COM5"; // Check which port is used on your system !
     private Timer callbackTimer;
     private Driver driver;
+    public bool isArrived = false;
+    private int arrivedVibrationCount = 0;
 
 
     [Range(0, 255)]
@@ -35,8 +37,12 @@ public class VibrationManager_minimal: MonoBehaviour
 
     private void Update()
     {
-        evaluateVibCurve();
-        playVib();   
+        if (!isArrived)
+        {
+            evaluateVibCurve();
+            playVib();
+        }
+           
     }
 
     private void OnApplicationQuit()
@@ -49,6 +55,8 @@ public class VibrationManager_minimal: MonoBehaviour
     {
         //driver.SetMessage(getDefaultMessage());
         driver.SendMessage();
+      
+        
     }
     
     private void evaluateVibCurve()
@@ -69,6 +77,20 @@ public class VibrationManager_minimal: MonoBehaviour
     {
         driver.SetMessage(new byte[5] { 0, 0, 0, 0, Driver.EndMarker });
     }
+
+    public async void sendArrivedMsg()
+    {
+        isArrived = true; // Set the flag to start the arrived sequence
+        for (int i = 0; i < 3; i++)
+        {
+            driver.SetMessage(new byte[5] { 50, 50, 50, 50, Driver.EndMarker });
+            await Task.Delay(200);
+            endVib();
+            await Task.Delay(200);
+        }
+
+    }
+
 }
 
 
