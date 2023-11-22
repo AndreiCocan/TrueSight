@@ -84,7 +84,6 @@ public class PathFinding : MonoBehaviour
     private bool isArrived()
     {
         float distance = Vector3.Distance(transform.position, target.position);
-        Debug.Log("remain distance to target : "+distance);
         return distance < 2;
     }
 
