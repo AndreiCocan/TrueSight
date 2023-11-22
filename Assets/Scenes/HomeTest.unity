@@ -676,6 +676,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2112246453}
     m_Modifications:
     - target: {fileID: 1243969571692840, guid: 7ebf42d51474b384a9d68b589b29e8ab, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243969571692840, guid: 7ebf42d51474b384a9d68b589b29e8ab, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -2374,6 +2378,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2112246453}
     m_Modifications:
     - target: {fileID: 1675897385185158, guid: ffd8e1255e97e92459288ddc59f9aeb0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675897385185158, guid: ffd8e1255e97e92459288ddc59f9aeb0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -3451,6 +3459,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2112246453}
     m_Modifications:
+    - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -5776,6 +5788,10 @@ PrefabInstance:
       value: StaircaseOpen_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -6940,6 +6956,10 @@ PrefabInstance:
     - target: {fileID: 1095306524187034, guid: df41bbc548ce0c444aa703f4d3130002, type: 3}
       propertyPath: m_Name
       value: StaircaseClosed_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095306524187034, guid: df41bbc548ce0c444aa703f4d3130002, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1095306524187034, guid: df41bbc548ce0c444aa703f4d3130002, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -8198,6 +8218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1602424214}
     m_Modifications:
+    - target: {fileID: 1004277362618830, guid: 4991aa057dd3d274883b9bfdb4555b91, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1004277362618830, guid: 4991aa057dd3d274883b9bfdb4555b91, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -9588,6 +9612,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4715009633207264, guid: 79f9379b2654ecd418deec3d4ca469bc, type: 3}
   m_PrefabInstance: {fileID: 982602591}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &990152335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990152337}
+  - component: {fileID: 990152336}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &990152336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990152335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.10333333
+  m_MinRegionArea: 2.04
+  m_NavMeshData: {fileID: 23800000, guid: 315377d5c58ea9b478c6ba168cfa5b1a, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &990152337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990152335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.4358051, y: -3.244072, z: 2.929098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992179038
 GameObject:
   m_ObjectHideFlags: 0
@@ -11055,6 +11142,10 @@ PrefabInstance:
       value: StaircaseOpen_01 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402991988117056, guid: 48d4dea2040079c4f8eb7a6e4e02631e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -11530,6 +11621,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2112246453}
     m_Modifications:
+    - target: {fileID: 1641649916297234, guid: eaa1707c155e6594eaa53c6d7ca65833, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1641649916297234, guid: eaa1707c155e6594eaa53c6d7ca65833, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -15624,6 +15719,10 @@ PrefabInstance:
       value: StaircaseStaticBig_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1243969571692840, guid: 7ebf42d51474b384a9d68b589b29e8ab, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243969571692840, guid: 7ebf42d51474b384a9d68b589b29e8ab, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -17028,6 +17127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2112246453}
     m_Modifications:
+    - target: {fileID: 1095306524187034, guid: df41bbc548ce0c444aa703f4d3130002, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1095306524187034, guid: df41bbc548ce0c444aa703f4d3130002, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -18960,6 +19063,83 @@ Transform:
   - {fileID: 2123358645}
   m_Father: {fileID: 1391298327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2012560491
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.935
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496325911200284520, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954958857427550231, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 2108212924}
+    - target: {fileID: 8104712787503620161, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8382115906891820016, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
+      propertyPath: walkingSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e33c9da01bfd61a42851baadb866d905, type: 3}
 --- !u!1001 &2016530586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20135,7 +20315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112246453}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Staircase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20531,3 +20711,5 @@ SceneRoots:
   - {fileID: 1391298327}
   - {fileID: 2049538496}
   - {fileID: 1678011041}
+  - {fileID: 2012560491}
+  - {fileID: 990152337}
