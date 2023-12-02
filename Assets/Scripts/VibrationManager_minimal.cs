@@ -14,8 +14,6 @@ public class VibrationManager_minimal: MonoBehaviour
     private Timer callbackTimer;
     private Driver driver;
     public bool isArrived = false;
-    private int arrivedVibrationCount = 0;
-
 
     [Range(0, 255)]
     public byte[] vibIntensity = new byte[4];
@@ -39,10 +37,8 @@ public class VibrationManager_minimal: MonoBehaviour
     {
         if (!isArrived)
         {
-            evaluateVibCurve();
             playVib();
         }
-           
     }
 
     private void OnApplicationQuit()
@@ -55,8 +51,6 @@ public class VibrationManager_minimal: MonoBehaviour
     {
         //driver.SetMessage(getDefaultMessage());
         driver.SendMessage();
-      
-        
     }
     
     private void evaluateVibCurve()
@@ -68,9 +62,8 @@ public class VibrationManager_minimal: MonoBehaviour
     }
     public void playVib()
     {
-
+        evaluateVibCurve();
         driver.SetMessage(new byte[5] { vibIntensity[0], vibIntensity[1], vibIntensity[2], vibIntensity[3], Driver.EndMarker });
-
     }
 
     public void endVib()

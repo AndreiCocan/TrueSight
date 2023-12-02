@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 4954958857427550231}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   devicePort: COM5
+  isArrived: 0
   vibIntensity: 00000000
   directionValue: 0
   currentVibSetting: {fileID: 11400000, guid: 5f0be7ad363e179478a05bd096089017, type: 2}

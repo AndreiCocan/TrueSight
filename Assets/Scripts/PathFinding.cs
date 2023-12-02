@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public class PathFinding : MonoBehaviour
 {
-    public Transform target;
+    public GameObject target;
     private NavMeshPath path;
+
+     bool isArrived;
 
     [SerializeField]
     public VibrationManager_minimal vm;
@@ -16,16 +18,17 @@ public class PathFinding : MonoBehaviour
     void Start()
     {
         path = new NavMeshPath();
+        isArrived = false;
         elapsed = 0.0f;
     }
 
     void Update()
     {
-        if( !vm.isArrived )
+        if( !isArrived)
         {
+            CalcDistToArrival();
             PathCalc();
         }
-        
     }
 
     private void PathCalc()
@@ -43,14 +46,10 @@ public class PathFinding : MonoBehaviour
 
                 Vector3 nearestNavMeshPosition = closestHit.position;
 
-                NavMesh.CalculatePath(nearestNavMeshPosition, target.position, NavMesh.AllAreas, path);
+                NavMesh.CalculatePath(nearestNavMeshPosition, target.transform.position, NavMesh.AllAreas, path);
 
 
                 VibrationFromPathDeviation();
-                if (isArrived() == true)
-                {
-                    vm.sendArrivedMsg();
-                }
             }
             else
             {
@@ -81,12 +80,16 @@ public class PathFinding : MonoBehaviour
 
     }
 
-    private bool isArrived()
+    private void CalcDistToArrival()
     {
-        float distance = Vector3.Distance(transform.position, target.position);
-        return distance < 2;
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        if(distance < 2)
+        {
+            isArrived = true;
+            target.SetActive(false);
+            Metrics.Instance.export();
+            vm.sendArrivedMsg();
+        }
     }
-
-
 
 }
