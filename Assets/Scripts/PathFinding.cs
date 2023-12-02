@@ -40,7 +40,7 @@ public class PathFinding : MonoBehaviour
             elapsed -= 0.1f;
 
             NavMeshHit closestHit;
-            if (NavMesh.SamplePosition(transform.position, out closestHit, 500, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(transform.position, out closestHit, 10, NavMesh.AllAreas))
             {
 
 
