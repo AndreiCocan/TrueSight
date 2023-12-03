@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -87,8 +88,16 @@ public class PathFinding : MonoBehaviour
         {
             isArrived = true;
             target.SetActive(false);
-            Metrics.Instance.export();
             vm.sendArrivedMsg();
+            try
+            {
+                Metrics.Instance.export();
+            }
+            catch (IOException e)
+            {
+                Debug.Log("The file is allready openend");
+            }
+
         }
     }
 
