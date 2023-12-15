@@ -114,7 +114,7 @@ Material:
     - _UseUIAlphaClip: 0
     - _ZWrite: 1
     - _fadewidth: 1.31
-    - _radius: 1.27
+    - _radius: 0.27
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
